@@ -224,7 +224,13 @@ function DashboardContent() {
       ) : (
         <div className="space-y-2">
           {todos.map((todo) => (
-            <TodoCard key={todo.id} todo={todo} onToggle={handleToggle} />
+            <TodoCard
+              key={todo.id}
+              todo={todo}
+              onToggle={handleToggle}
+              onDeleted={() => mutate()}
+              onUpdated={() => mutate()}
+            />
           ))}
         </div>
       )}
