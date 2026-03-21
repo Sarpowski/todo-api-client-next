@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input";
 
 import { TodoCard } from "@/widgets/todo-card/TodoCard";
 import { TodoListSkeleton } from "@/widgets/todo-card/TodoCardSkeleton";
+import { CreateTodoDialog } from "@/features/todos/components/CreateTodoDialog";
 import { useDebounce } from "@/shared/lib/useDebounce";
 import type { TodoResponseDto, TodoResponsePageableDto, Priority } from "@/shared/api/types";
 import {
@@ -51,6 +52,7 @@ function DashboardContent() {
   const view = searchParams.get("view");
   const paramPriority = searchParams.get("priority") as Priority | null;
 
+  const [createOpen, setCreateOpen] = useState(false);
   const [searchInput, setSearchInput] = useState("");
   const debouncedQuery = useDebounce(searchInput, 300);
 
@@ -138,12 +140,7 @@ function DashboardContent() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-semibold">{title}</h1>
-        <Button
-          size="sm"
-          onClick={() => {
-            /* CreateTodoDialog will be wired in Part 5 */
-          }}
-        >
+        <Button size="sm" onClick={() => setCreateOpen(true)}>
           <Plus className="size-4" />
           <span className="hidden sm:inline">Новая задача</span>
         </Button>
@@ -258,6 +255,12 @@ function DashboardContent() {
           </Button>
         </div>
       )}
+
+      <CreateTodoDialog
+        open={createOpen}
+        onOpenChange={setCreateOpen}
+        onCreated={() => mutate()}
+      />
     </div>
   );
 }
