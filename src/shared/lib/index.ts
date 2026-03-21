@@ -6,3 +6,4 @@ export {
   isTokenExpired,
 } from "./auth";
 export { PRIORITY_CONFIG, REPEAT_LABELS } from "./constants";
+export { useAuth } from "./useAuth";
